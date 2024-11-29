@@ -64,7 +64,7 @@ class RAGChatbot:
             return None
 
         llm = HuggingFaceEndpoint(
-            endpoint_url="https://api-inference.huggingface.co/models/beomi/Llama-3-KoEn-8B-Instruct-preview",
+            endpoint_url="https://api-inference.huggingface.co/models/Qwen/QwQ-32B-Preview",
             huggingfacehub_api_token=self.huggingface_token,
             max_length=1024,
             temperature=0.7,

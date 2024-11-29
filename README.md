@@ -1,47 +1,76 @@
-# **Simple_bot: Converse com seu PDF 📄**
-
-## **Descrição do Projeto**
-O **Simple_bot** é um chatbot interativo que permite conversar com documentos PDF. Baseado em **RAG (Retrieval-Augmented Generation)**, ele utiliza tecnologias avançadas de **Processamento de Linguagem Natural (PLN)** para analisar e responder perguntas com base no conteúdo de PDFs carregados pelo usuário.
-
-Com uma interface construída em **Streamlit**, o Simple_bot é uma ferramenta prática para profissionais, estudantes ou qualquer pessoa que precise extrair informações de documentos de maneira ágil e eficiente.
+Aqui está um modelo para o seu README, explicando as partes essenciais do código:
 
 ---
 
-## **Funcionalidades**
-- **Carregamento de PDFs**: Faça upload de documentos para análise.
-- **Segmentação Inteligente de Texto**: Divide o conteúdo em chunks para vetorização.
-- **Busca Vetorial**: Utiliza embeddings para localizar respostas precisas no documento.
-- **Respostas Contextuais**: Responde a perguntas baseando-se estritamente no conteúdo carregado.
-- **Interface Simples e Intuitiva**: Desenvolvido com Streamlit para fácil interação.
+# **Simple_bot: Converse com seu PDF** 📄
+
+Um chatbot RAG (Retrieval-Augmented Generation) construído com **Streamlit**, **LangChain** e **Hugging Face**, permitindo que os usuários carreguem documentos PDF e façam perguntas com base no conteúdo.
 
 ---
 
-## **Tecnologias Utilizadas**
-- **Frontend**: [Streamlit](https://streamlit.io/)
-- **NLP e Embeddings**: 
-  - Modelo de embeddings: `sentence-transformers/all-MiniLM-L6-v2`.
-  - Endpoint Hugging Face: `mistralai/Mistral-7B-Instruct-v0.3`.
-- **Armazenamento Vetorial**: [ChromaDB](https://www.trychroma.com/).
-- **Divisão de Texto**: `RecursiveCharacterTextSplitter` da biblioteca LangChain.
-- **Backend**: 
-  - [LangChain](https://langchain.com/) para cadeia de processamento.
-  - [Hugging Face API](https://huggingface.co/inference-api) para geração de respostas.
-- **Gerenciamento de Ambientes**: [Python-dotenv](https://pypi.org/project/python-dotenv/).
+## **🚀 Funcionalidades**
+- **Carregamento de PDFs:** Os usuários podem carregar arquivos PDF diretamente.
+- **Processamento de documentos:** Os PDFs são divididos em chunks para vetorização eficiente.
+- **Busca de informações:** Respostas são geradas com base no conteúdo do documento.
+- **Interface amigável:** Construída em **Streamlit** com suporte a chat interativo.
 
 ---
 
-## **Pré-requisitos**
-1. **Python 3.9+**.
-2. Conta na [Hugging Face](https://huggingface.co/) para obter o token de API.
-3. Dependências instaladas via `requirements.txt` (veja abaixo).
+## **🛠 Tecnologias Utilizadas**
+- **Python**
+- **Streamlit** para a interface web.
+- **LangChain** para RAG e processamento de textos.
+- **Hugging Face** para embeddings e geração de respostas.
+- **ChromaDB** como banco de vetores.
 
 ---
 
-## **Instalação**
+## **📂 Estrutura do Código**
+
+### **1. Classe `RAGChatbot`**
+A classe principal do projeto, que gerencia o pipeline completo:
+- **`load_document(pdf_file):`**  
+  Carrega e processa arquivos PDF usando `PyPDFLoader`.
+
+- **`process_document(documents):`**  
+  Divide o texto em chunks e cria embeddings com `HuggingFaceEmbeddings`. Os vetores são armazenados no `ChromaDB`.
+
+- **`create_conversation_chain():`**  
+  Cria a cadeia de conversação usando o modelo LLM hospedado na Hugging Face e um prompt personalizado.
+
+- **`chat(question):`**  
+  Realiza perguntas ao modelo e retorna respostas baseadas no conteúdo.
+
+---
+
+### **2. `main()`**
+O ponto de entrada do aplicativo:
+- **Sidebar:** Carregamento de PDFs.
+- **Chat interativo:** Entrada do usuário via `st.chat_input` para fazer perguntas.
+- **Mensagens:** Exibe mensagens enviadas pelo usuário e respostas do chatbot.
+
+---
+
+### **3. Prompt Customizado**
+O prompt usado para guiar as respostas do modelo:
+```text
+Baseie-se estritamente no contexto fornecido para responder a pergunta.
+Se a resposta não estiver no contexto, indique que não possui informações suficientes.
+
+INSTRUÇÕES IMPORTANTES:
+- Forneça uma resposta COMPLETA e DETALHADA.
+- NÃO INTERROMPA a resposta no meio.
+- Se necessário, use parágrafos adicionais para explicar completamente.
+- Garanta que a explicação seja clara e abrangente.
+```
+
+---
+
+## **⚙️ Como Usar**
 1. Clone este repositório:
    ```bash
-   git clone https://github.com/seu-usuario/simple_bot.git
-   cd simple_bot
+   git clone https://github.com/SEU_USUARIO/Simple_bot.git
+   cd Simple_bot
    ```
 
 2. Instale as dependências:
@@ -49,42 +78,32 @@ Com uma interface construída em **Streamlit**, o Simple_bot é uma ferramenta p
    pip install -r requirements.txt
    ```
 
-3. Crie um arquivo `.env` e adicione seu token da Hugging Face:
-   ```bash
-   HF_TOKEN=seu_token_huggingface
+3. Configure o arquivo `.env` com seu token da Hugging Face:
+   ```env
+   HF_TOKEN=seu_token
    ```
 
-4. Execute o aplicativo:
+4. Inicie o aplicativo:
    ```bash
    streamlit run app.py
    ```
 
----
-
-## **Como Usar**
-1. **Carregue seu PDF**: No menu lateral, selecione e faça upload de um arquivo PDF.
-2. **Faça Perguntas**: Use o campo de entrada para digitar sua pergunta sobre o conteúdo.
-3. **Obtenha Respostas**: O chatbot processará a pergunta e retornará uma resposta clara e detalhada baseada no contexto do PDF.
+5. Carregue um PDF e faça perguntas diretamente no chat.
 
 ---
 
-## **Exemplo**
-1. **PDF carregado**: "Guia de introdução à Programação".
-2. **Pergunta do usuário**: "O que é uma variável em programação?"
-3. **Resposta do bot**: 
-   > "Uma variável é um espaço na memória do computador usado para armazenar valores que podem ser alterados durante a execução de um programa."
+## **🔑 Pontos Essenciais do Código**
+- **Carregamento seguro de PDFs:** Arquivos são processados usando `tempfile` para evitar problemas de segurança.
+- **RAG Pipeline:** Combinação de vetorização (`HuggingFaceEmbeddings` e `ChromaDB`) com modelos LLM para respostas precisas.
+- **Interface Streamlit:** Oferece uma experiência fluida e interativa.
 
 ---
 
-## **Contribuições**
-Sinta-se à vontade para contribuir com melhorias ou relatórios de bugs. Envie pull requests ou abra issues no repositório!
-
----
-
-## **Licença**
+## **📜 Licença**
 Este projeto está licenciado sob a [MIT License](LICENSE).
 
 ---
 
+Sinta-se à vontade para modificar ou expandir este modelo conforme necessário!
 ### **Desenvolvido por**  
 [TheuxSR](https://github.com/TheuxSR) 💻

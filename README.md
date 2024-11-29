@@ -105,5 +105,4 @@ Este projeto está licenciado sob a [MIT License](LICENSE).
 ---
 
 Sinta-se à vontade para modificar ou expandir este modelo conforme necessário!
-### **Desenvolvido por**  
-[TheuxSR](https://github.com/TheuxSR) 💻
+### **Desenvolvido por**  [TheuxSR](https://github.com/TheuxSR) 💻

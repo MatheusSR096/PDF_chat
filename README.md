@@ -92,13 +92,6 @@ INSTRUÇÕES IMPORTANTES:
 
 ---
 
-## **🔑 Pontos Essenciais do Código**
-- **Carregamento seguro de PDFs:** Arquivos são processados usando `tempfile` para evitar problemas de segurança.
-- **RAG Pipeline:** Combinação de vetorização (`HuggingFaceEmbeddings` e `ChromaDB`) com modelos LLM para respostas precisas.
-- **Interface Streamlit:** Oferece uma experiência fluida e interativa.
-
----
-
 ## **📜 Licença**
 Este projeto está licenciado sob a [MIT License](LICENSE).
 
